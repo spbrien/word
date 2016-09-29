@@ -34,6 +34,10 @@ def clone_vagrant_setup(project_name):
     with open("%s/fabfile.py" % project_dir, "w") as f:
         f.write(fabric)
 
+    ignore = create_template(project_name, '.gitignore')
+    with open("%s/.gitignore" % project_dir, "w") as f:
+        f.write(ignore)
+
 
 def install_vagrant_environment(project_name):
     project_dir = os.path.join(os.getcwd(), project_name)
@@ -54,6 +58,9 @@ def clone_basetheme(project_name):
     # remove the git directory
     clean_cmd = "rm -rf %s/.git" % theme_dir
     subprocess.call(clean_cmd.split())
+
+    clean_ignore_cmd = "rm -rf %s/.gitignore" % theme_dir
+    subprocess.call(clean_ignore_cmd.split())
 
     config = create_template(project_name, 'setup.php')
     with open("%s/lib/setup.php" % theme_dir, "w") as f:
