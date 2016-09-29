@@ -30,6 +30,10 @@ def clone_vagrant_setup(project_name):
     with open("%s/site.yml" % project_dir, "w") as f:
         f.write(config)
 
+    fabric = create_template(project_name, 'fabfile.py')
+    with open("%s/fabfile.py" % project_dir, "w") as f:
+        f.write(fabric)
+
 
 def install_vagrant_environment(project_name):
     project_dir = os.path.join(os.getcwd(), project_name)
