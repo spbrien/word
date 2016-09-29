@@ -1,13 +1,16 @@
 # -*- coding: utf-8 -*-
 
 import click
+from word import *
 
 @click.command()
-def main(args=None):
-    """Console script for word"""
-    click.echo("Replace this message by putting your code into "
-                "word.cli.main")
-    click.echo("See click documentation at http://click.pocoo.org/")
+@click.argument('project_name')
+def main(project_name):
+    """Wordpress Tools"""
+    # clone_vagrant_setup(project_name)
+    # install_vagrant_environment(project_name)
+    clone_basetheme(project_name)
+    # cleanup(project_name)
 
 
 if __name__ == "__main__":
