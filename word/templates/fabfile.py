@@ -1,11 +1,6 @@
-{% raw %}from fabric.api import env, local, run
+{% raw %}from fabric.api import *
+from fabtools.vagrant import vagrant
 
-def vagrant():
-    env.user = "vagrant"
-    env.hosts = ['127.0.0.1:2222']
-
-    result = local('vagrant ssh_config | grep IdentityFile', capture=True)
-    env.key_filename = result.split()[1]
-
+@task
 def uname():
     run('uname -a'){% endraw %}
