@@ -11,12 +11,24 @@ from settings import *
 env = Environment(loader=PackageLoader('word', 'templates'))
 
 
+# Utility Functions
+# -------------------------------
+
 def create_template(project_name, out_dir, template_name):
     template = env.get_template(template_name)
     data = template.render(project_name=project_name)
     with open("%s/%s" % (out_dir, template_name), "w") as f:
         f.write(data)
 
+
+def create_dir(parent, name):
+    new = os.path.join(parent, name)
+    if not os.path.exists(new):
+        os.makedirs(new)
+
+
+# Making all the things
+# -------------------------------
 
 def clone_vagrant_setup(project_name):
     # clone the vagrant repo
@@ -28,9 +40,13 @@ def clone_vagrant_setup(project_name):
     clean_cmd = "rm -rf %s/.git" % project_dir
     subprocess.call(clean_cmd.split())
 
+    # Create basic default configs
     create_template(project_name, project_dir, 'site.yml')
     create_template(project_name, project_dir, 'fabfile.py')
     create_template(project_name, project_dir, '.gitignore')
+
+    # Make some additional folders
+    create_dir(project_dir, 'backups')
 
 
 def install_vagrant_environment(project_name):
