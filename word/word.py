@@ -27,6 +27,12 @@ def create_dir(parent, name):
         os.makedirs(new)
 
 
+def create_file(parent, name):
+    new = os.path.join(parent, name)
+    if not os.path.exists(new):
+        open(new, 'w').close()
+
+
 # Making all the things
 # -------------------------------
 
@@ -45,8 +51,9 @@ def clone_vagrant_setup(project_name):
     create_template(project_name, project_dir, 'fabfile.py')
     create_template(project_name, project_dir, '.gitignore')
 
-    # Make some additional folders
+    # Make some additional files and folders
     create_dir(project_dir, 'backups')
+    create_file(project_dir, '.project')
 
 
 def install_vagrant_environment(project_name):
